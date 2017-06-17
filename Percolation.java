@@ -86,10 +86,10 @@ public class Percolation {
         if (row == gridSize) { // Any grid site on the last row should connect to the bottom virtual site.
             connectSites(indexOfGridSite, (gridSize^2) + 1);
         }
-        if (row > 1 && isOpen(row - 1, col)) { // Checking to see if the site below is open.
+        if (row > 1 && isOpen(row - 1, col)) { // Checking to see if the site above is open.
             connectSites(indexOfGridSite, getIndexOfGridSite(row - 1, col));
         }
-        if (row < gridSize && isOpen(row + 1, col)) { // Checking to see if the site above is open.
+        if (row < gridSize && isOpen(row + 1, col)) { // Checking to see if the site below is open.
             connectSites(indexOfGridSite, getIndexOfGridSite(row + 1, col));
         }
         if (col > 1 && isOpen(row, col - 1)) { // Checking to see if the site to the left is open.
