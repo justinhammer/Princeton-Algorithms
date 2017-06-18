@@ -14,7 +14,7 @@ public class Percolation {
 
     
     /**
-     * Create a n-by-n grid, with all the sites initially blocked.
+     * Create an n-by-n grid, with all the sites initially blocked.
      * @param n Size of grid = n^2.
      */
     public Percolation(int n) { 
