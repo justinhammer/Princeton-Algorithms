@@ -37,7 +37,7 @@ public class Percolation {
      * @return boolean
      * @description Checks if x and y coordinates are within a valid range.
      */
-    public boolean areCoordinatesForGridValid(int row, int col) {
+    private boolean areCoordinatesForGridValid(int row, int col) {
         if (row < 1 || row > gridSize || col < 1 || col > gridSize) {
             throw new java.lang.IndexOutOfBoundsException();
         } else {
@@ -52,7 +52,7 @@ public class Percolation {
      * @return int
      * @description Gives us the index of the grid site while accounting for indices of virtual sites.
      */
-    public int getIndexOfGridSite(int row, int col) {
+    private int getIndexOfGridSite(int row, int col) {
         areCoordinatesForGridValid(row, col);
         return (row - 1) * gridSize + col; // Virtual nodes have indices 0 and (n^2)+1
     }
