@@ -1,5 +1,3 @@
-//package statement?
-
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
 
@@ -23,7 +21,7 @@ public class PercolationStats {
             throw new IllegalArgumentException("n and trials must both  be> 0.");
         }
         testResults = new double[trials];
-        for(int i = 0; i < trials; i++) {
+        for (int i = 0; i < trials; i++) {
                 testResults[i] = runTests(n);
             }
     }
@@ -40,13 +38,13 @@ public class PercolationStats {
         while (!newPercolation.percolates()) {
             int row = StdRandom.uniform(numberOfTestsToRun) + 1;
             int col = StdRandom.uniform(numberOfTestsToRun) + 1;
-            if(!newPercolation.isOpen(row, col)) {
+            if (!newPercolation.isOpen(row, col)) {
                 newPercolation.open(row, col);
                 testCount++;
             }
             
         }
-        return testCount / (numberOfTestsToRun^2);
+        return testCount / (numberOfTestsToRun * numberOfTestsToRun);
     }
     
     

@@ -34,26 +34,13 @@ public class Percolation {
     /**
      * @param row Row coordinate of the grid.
      * @param col Column coordinate of the grid.
-     * @return boolean
-     * @description Checks if x and y coordinates are within a valid range.
-     */
-    private boolean areCoordinatesForGridValid(int row, int col) {
-        if (row < 1 || row > gridSize || col < 1 || col > gridSize) {
-            throw new java.lang.IndexOutOfBoundsException();
-        } else {
-            return true;
-        }
-    }
-    
-    
-    /**
-     * @param row Row coordinate of the grid.
-     * @param col Column coordinate of the grid.
      * @return int
      * @description Gives us the index of the grid site while accounting for indices of virtual sites.
      */
     private int getIndexOfGridSite(int row, int col) {
-        areCoordinatesForGridValid(row, col);
+        if (row < 1 || row > gridSize || col < 1 || col > gridSize) {
+            throw new java.lang.IndexOutOfBoundsException();
+        }
         return (row - 1) * gridSize + col; // Virtual nodes have indices 0 and (n^2)+1
     }
     
@@ -74,7 +61,9 @@ public class Percolation {
      * @description This method opens a site on the grid if it is not open already.
      */
     public void open(int row, int col) {
-        areCoordinatesForGridValid(row, col);
+        if (row < 1 || row > gridSize || col < 1 || col > gridSize) {
+            throw new java.lang.IndexOutOfBoundsException();
+        }
         int indexOfGridSite = getIndexOfGridSite(row, col);
         if (!isOpen(row, col)) {
             gridSite[indexOfGridSite] = true;
@@ -84,7 +73,7 @@ public class Percolation {
             connectSites(indexOfGridSite, 0);
         }
         if (row == gridSize) { // Any grid site on the last row should connect to the bottom virtual site.
-            connectSites(indexOfGridSite, (gridSize^2) + 1);
+            connectSites(indexOfGridSite, (gridSize * gridSize) + 1);
         }
         if (row > 1 && isOpen(row - 1, col)) { // Checking to see if the site above is open.
             connectSites(indexOfGridSite, getIndexOfGridSite(row - 1, col));
@@ -108,7 +97,9 @@ public class Percolation {
      * @description Checks if a site (row, col) is open.
      */
     public boolean isOpen(int row, int col) {
-        areCoordinatesForGridValid(row, col);
+        if (row < 1 || row > gridSize || col < 1 || col > gridSize) {
+            throw new java.lang.IndexOutOfBoundsException();
+        }
         return gridSite[(getIndexOfGridSite(row, col))];
     }
     
@@ -117,11 +108,13 @@ public class Percolation {
      * @param row Row coordinate of the grid. 
      * @param col Column coordinate of the grid.
      * @return boolean
-     * @description Checks if a site (row, col) is full.
+     * @description Checks if a site (row, col) is full. True if it is connected to virtual site at gridSite[0].
      */
     public boolean isFull(int row, int col) {
-        areCoordinatesForGridValid(row, col);
-        return (!isOpen(row, col));
+        if (row < 1 || row > gridSize || col < 1 || col > gridSize) {
+            throw new java.lang.IndexOutOfBoundsException();
+        }
+        return weightedUnionFind.connected(getIndexOfGridSite(row, col), 0);
     }
     
     
@@ -139,7 +132,7 @@ public class Percolation {
      * @description Checks if the grid percolates.
      */
     public boolean percolates() { 
-        return weightedUnionFind.connected((gridSize^2) + 1, 0);
+        return weightedUnionFind.connected((gridSize * gridSize) + 1, 0);
     }
     
     
